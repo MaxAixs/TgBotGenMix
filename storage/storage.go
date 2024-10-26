@@ -1,13 +1,32 @@
 package storage
 
 type Storage interface {
-	AddTobacco(tobaccoName string, strength Strength)
-	DeleteTobacco(tobaccoName string)
+	TobaccoManager
+	FlavorManager
+	CatalogManager
+	GenerateMix
+}
+
+type FlavorManager interface {
 	AddFlavor(tobaccoName, flavorName string, flavorType Flavors) error
-	DeleteFlavor(tobaccoName, flavorName string, flavorType Flavors) error
+	DeleteFlavor(tobaccoName, flavorName string) error
+	FlavorExists(tobaccoName string, flavorName string) bool
+	GetFlavors(tobaccoName string, strength Strength) (map[string]string, error)
+}
+
+type CatalogManager interface {
 	ShowTobaccoCatalog(tobaccoName string) string
+}
+
+type TobaccoManager interface {
+	AddTobacco(tobaccoName string, strength Strength) error
+	DeleteTobacco(tobaccoName string) error
 	TobaccoExists(tobaccoName string) bool
-	FlavorExists(tobaccoName BarOfTobacco, flavorName string, flavorType Flavors) bool
+	GetTbcBar(strength Strength) string
+}
+
+type GenerateMix interface {
+	GenerateMix(strength Strength, flavorType Flavors) string
 }
 
 type Strength string
@@ -27,7 +46,7 @@ const (
 )
 
 type BarOfTobacco struct {
-	Strength string
+	Strength Strength
 	Flavor   map[Flavors][]string
 }
 

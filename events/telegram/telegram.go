@@ -5,14 +5,14 @@ import (
 	"BotMixology/events"
 	"BotMixology/events/telegram/userState"
 	"BotMixology/lib/e"
-	"BotMixology/storage"
+	"BotMixology/storage/sqlite"
 	"errors"
 )
 
 type Processor struct {
 	tg         *telegram.Client
 	offset     int
-	storage    storage.Storage
+	Storage    sqlite.Storage
 	userStates map[int]*userState.UserState
 }
 
@@ -26,10 +26,10 @@ var (
 	ErrorUnknownMetaType  = errors.New("unknown meta type")
 )
 
-func NewProcessor(client *telegram.Client, storage storage.Storage) *Processor {
+func NewProcessor(client *telegram.Client, storage sqlite.Storage) *Processor {
 	return &Processor{
 		tg:         client,
-		storage:    storage,
+		Storage:    storage,
 		userStates: make(map[int]*userState.UserState),
 	}
 }

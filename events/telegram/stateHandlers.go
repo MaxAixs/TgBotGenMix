@@ -15,7 +15,12 @@ const (
 	SelectTbcForFlavorDelete = "stateSelectTobaccoForFlavorDelete"
 	DeleteFlavorName         = "stateDeleteFlavorName"
 	DeleteFlavorType         = "stateDeleteFlavorType"
-	ShowTbcCatalog           = "stateShowTobaccoCatalog"
+	ShowTobaccoCatalog       = "stateShowTobaccoCatalog"
+	SelectStrForMix          = "stateSelectStrengthForMix"
+	SelectFlavorType         = "stateSelectFlavorTypeForMix"
+	ChooseStrength           = "stateChooseStrength"
+	ChooseTbc                = "stateChooseTbc"
+	GetAndChooseFlavors      = "stateChooseFlavors"
 )
 
 var StateHandlers = map[string]func(*Processor, *userState.UserState, string, func(string, ...buttons.ReplyMarkUp) error) error{
@@ -28,5 +33,10 @@ var StateHandlers = map[string]func(*Processor, *userState.UserState, string, fu
 	SelectTbcForFlavorDelete: (*Processor).DeleteFlavor,
 	DeleteFlavorName:         (*Processor).DeleteFlavor,
 	DeleteFlavorType:         (*Processor).DeleteFlavor,
-	ShowTbcCatalog:           (*Processor).ShowTobacco,
+	ShowTobaccoCatalog:       (*Processor).ShowTobacco,
+	SelectStrForMix:          (*Processor).GenerateMix,
+	SelectFlavorType:         (*Processor).GenerateMix,
+	ChooseStrength:           (*Processor).CreateMix,
+	ChooseTbc:                (*Processor).CreateMix,
+	GetAndChooseFlavors:      (*Processor).CreateMix,
 }

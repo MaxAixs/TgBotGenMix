@@ -4,19 +4,25 @@ import (
 	"BotMixology/client/telegram"
 	event_consumer "BotMixology/consumer/event-consumer"
 	telegram2 "BotMixology/events/telegram"
-	"BotMixology/storage/files"
+	"BotMixology/storage/sqlite"
 	"flag"
+	_ "github.com/glebarez/go-sqlite"
 	"log"
 )
 
 const (
-	tgBotHost = "api.telegram.org"
+	tgBotHost         = "api.telegram.org"
+	sqliteStoragePath = "D:/SQLite/my_database.db"
 )
 
 func main() {
 	tgClient := telegram.NewClient(tgBotHost, mustToken())
-	store := files.NewStorage()
-	processor := telegram2.NewProcessor(tgClient, store)
+	store, err := sqlite.NewDb(sqliteStoragePath)
+	if err != nil {
+		log.Fatal("Failed to open database: ", err)
+	}
+
+	processor := telegram2.NewProcessor(tgClient, *store)
 	consumer := event_consumer.NewConsumer(processor, processor, 100)
 
 	log.Println("Service starting")
@@ -29,7 +35,7 @@ func main() {
 func mustToken() string {
 	token := flag.String(
 		"tg-bot-token",
-		"",
+		"7380869857:AAFRlQCT5qVxqpubXKgUFYjXqzEbz9k0uHo",
 		"token for access telegram bot!",
 	)
 

@@ -4,6 +4,8 @@ import (
 	"BotMixology/lib/e"
 	"BotMixology/storage"
 	"fmt"
+	"math/rand"
+	"time"
 )
 
 type Storage struct {
@@ -19,7 +21,7 @@ func NewStorage() *Storage {
 func (s *Storage) AddTobacco(tobaccoName string, strength storage.Strength) {
 
 	s.tobaccos[tobaccoName] = storage.BarOfTobacco{
-		Strength: string(strength),
+		Strength: storage.Strength(string(strength)),
 		Flavor:   make(map[storage.Flavors][]string),
 	}
 }
@@ -88,4 +90,50 @@ func (s *Storage) FlavorExists(tobacco storage.BarOfTobacco, flavorName string, 
 	}
 
 	return false
+}
+
+func (s *Storage) GenerateMix(strength storage.Strength, flavorType storage.Flavors) string {
+	var mixResult string
+	var allFlavors []string
+
+	for tobaccoName, tobacco := range s.tobaccos {
+		if tobacco.Strength == strength {
+			if flavors, exists := tobacco.Flavor[flavorType]; exists && len(flavors) > 0 {
+				mixResult += fmt.Sprintf("Табак: %s\n", tobaccoName)
+				mixResult += fmt.Sprintf("Крепость: %s\n", strength)
+				mixResult += fmt.Sprintf("Вкусы: (%s): %v\n", flavorType, flavors)
+
+				allFlavors = append(allFlavors, flavors...)
+			}
+		}
+	}
+
+	if len(allFlavors) == 0 {
+		return fmt.Sprintf("Нет табаков с такой крепостью '%s' и типом вкуса '%s'", strength, flavorType)
+	}
+
+	mix := generateFlavorMix(allFlavors)
+
+	mixResult += fmt.Sprintf("\nСгенерированный микс вкусов: %v", mix)
+
+	return mixResult
+}
+
+func generateFlavorMix(flavors []string) []string {
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+
+	mixSize := 2
+
+	if len(flavors) < mixSize {
+		return flavors
+	}
+
+	flavor1 := r.Intn(len(flavors))
+	flavor2 := r.Intn(len(flavors))
+
+	for flavor1 == flavor2 {
+		flavor2 = r.Intn(len(flavors))
+	}
+
+	return []string{flavors[flavor1], flavors[flavor2]}
 }

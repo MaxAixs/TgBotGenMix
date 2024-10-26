@@ -22,6 +22,9 @@ func CommandKeyboard() ReplyMarkUp {
 			},
 			{
 				{Text: "Показать каталог табака", CallbackData: "showTobaccoCatalog"},
+				{Text: "Cгенерировать микс", CallbackData: "generateMix"},
+			}, {
+				{Text: "Создать микс", CallbackData: "createMix"},
 			},
 		},
 	}
