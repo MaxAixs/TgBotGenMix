@@ -6,13 +6,6 @@ import (
 	"fmt"
 )
 
-type FlavorManager interface {
-	AddFlavor(tobaccoName, flavorName string, flavorType storage.Flavors) error
-	DeleteFlavor(tobaccoName, flavorName string) error
-	FlavorExists(tobaccoName string, flavorName string) bool
-	GetFlavors(tobaccoName string, strength storage.Strength) (map[string]string, error)
-}
-
 // AddFlavor adds a new flavor associated with the specified tobacco.
 func (s *Storage) AddFlavor(tobaccoName string, FlavorName string, flavorType storage.Flavors) error {
 	var tobaccoID int

@@ -7,10 +7,6 @@ import (
 	"strings"
 )
 
-type CatalogManager interface {
-	ShowTobaccoCatalog(tobaccoName string) string
-}
-
 // ShowTobaccoCatalog displays the catalog of a tobacco and all its associated flavors.
 func (s *Storage) ShowTobaccoCatalog(tobaccoName string) string {
 	var result strings.Builder

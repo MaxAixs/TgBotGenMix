@@ -22,7 +22,7 @@ type TobaccoManager interface {
 	AddTobacco(tobaccoName string, strength Strength) error
 	DeleteTobacco(tobaccoName string) error
 	TobaccoExists(tobaccoName string) bool
-	GetTbcBar(strength Strength) string
+	GetTobaccoBar(strength Strength) string
 }
 
 type GenerateMix interface {

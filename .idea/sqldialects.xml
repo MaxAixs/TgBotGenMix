@@ -2,10 +2,8 @@
 <project version="4">
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/storage/sqlite/catalogManager.go" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/storage/sqlite/flavorManager.go" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/storage/sqlite/migrations.go" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/storage/sqlite/mixManager.go" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/storage/sqlite/sqlite.go" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/storage/sqlite/tbcManager.go" dialect="GenericSQL" />
   </component>
 </project>

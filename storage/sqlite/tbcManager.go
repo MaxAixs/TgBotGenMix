@@ -21,8 +21,8 @@ func (s *Storage) DeleteTobacco(tobaccoName string) error {
 	return e.CheckErr("can't delete Tobacco", err)
 }
 
-// GetTbcBar Get all tobaccos of a specific strength, returning their names as a formatted string.
-func (s *Storage) GetTbcBar(strength storage.Strength) string {
+// GetTobaccoBar Get all tobaccos of a specific strength, returning their names as a formatted string.
+func (s *Storage) GetTobaccoBar(strength storage.Strength) string {
 	var result strings.Builder
 	query := `SELECT tobaccoName FROM tobacco WHERE strength = ?`
 	rows, err := s.db.Query(query, strength)
